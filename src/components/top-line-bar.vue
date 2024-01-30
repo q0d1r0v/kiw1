@@ -28,7 +28,9 @@ const links = [
             </div>
         </div>
         <div class="left-side desktop">
-            <!-- Left side -->
+            <span>
+                +998 99 123 45 67
+            </span>
         </div>
         <div class="right-side desktop">
             <div v-for="(link, index) of links" :key="index">

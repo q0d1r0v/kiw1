@@ -2,6 +2,7 @@
 // imports
 import TopLineBar from "../components/top-line-bar.vue"
 import TopBar from "../components/top-bar.vue"
+import Footer from "../components/footer.vue"
 
 </script>
 
@@ -12,6 +13,7 @@ import TopBar from "../components/top-bar.vue"
         <div class="layout">
             <router-view />
         </div>
+        <Footer />
     </div>
 </template>
 
@@ -25,5 +27,6 @@ import TopBar from "../components/top-bar.vue"
 .layout {
     padding-left: 200px;
     padding-right: 200px;
+    height: 100vh;
 }
 </style>
