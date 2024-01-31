@@ -1,22 +1,53 @@
 <script setup lang="ts">
 // imports
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { Icon } from "@iconify/vue"
 import { onClickOutside } from "@vueuse/core"
+import { useCategoryStore } from "../store/categories"
+import { Loading } from "quasar";
 
 // ref
 const target = ref<any>('')
+
+// store
+const categories: any = useCategoryStore()
 
 // data
 const drawer = ref<boolean>(false)
 const m_drawer = ref<boolean>(false)
 
 // methods
+async function getCategories() {
+    try {
+        Loading.show()
+        await categories.getCategories()
+    } catch (err) {
+        console.log(err)
+    } finally {
+        Loading.hide()
+    }
+}
+
 function changeDrawerValue(name: string) {
     if (name === "m_drawer") {
         m_drawer.value = !m_drawer.value
     } else {
         drawer.value = !drawer.value
+    }
+}
+
+function getImageName(data: any) {
+    const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data.photo
+    console.log(url)
+
+    return url
+}
+
+function closeNavBar(name: string) {
+    if (name === "desktop") {
+        drawer.value = false
+    } else {
+        m_drawer.value = false
     }
 }
 
@@ -26,6 +57,11 @@ onClickOutside(target, () => {
         drawer.value = false
         m_drawer.value = false
     }
+})
+
+// onmounted
+onMounted(() => {
+    getCategories()
 })
 
 </script>
@@ -45,35 +81,80 @@ onClickOutside(target, () => {
             </div>
 
             <div class="right-side">
-                Right side
+                <q-input outlined dense placeholder="Qidiruv...">
+                    <template #append>
+                        <Icon icon="ri-search-line" class="text-md cursor-pointer" />
+                    </template>
+                </q-input>
             </div>
         </div>
 
         <div class="mobile">
-            <div class="m-menu" @click="changeDrawerValue('m_drawer')">
-                <span>
+            <div class="m-menu flex justify-between w-full">
+                <span @click="changeDrawerValue('m_drawer')">
                     <Icon icon="ri-menu-line" />
                 </span>
+                <q-input outlined dense placeholder="Qidiruv...">
+                    <template #append>
+                        <Icon icon="ri-search-line" class="text-md cursor-pointer" />
+                    </template>
+                </q-input>
             </div>
         </div>
     </div>
 
     <q-layout style="position: absolute">
-        <q-drawer v-model="drawer" show-if-above bordered overlay ref="target" :width="800">
+        <q-drawer v-model="drawer" bordered overlay ref="target" :width="800">
             <div class="drawer">
-                <span class="category-text">
-                    Katalog d
-                </span>
+                <div class="flex items-center justify-between">
+                    <span class="category-text">
+                        Katalog
+                    </span>
+
+                    <div class="inline-block border border-red-400 p-2 rounded-md cursor-pointer select-none text-red-400"
+                        @click="closeNavBar('desktop')">
+                        <Icon icon="ri-close-line" class="text-lg" />
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div class="row">
+                        <div class="col-md-4 bg-[#7316f60a] hover:bg-[#7316f618] active:bg-[#7316f61f] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center"
+                            v-for="(category, index) of  categories.categories" :key="index">
+                            <img :src="getImageName(category)" />
+                            {{ category.name }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </q-drawer>
     </q-layout>
 
     <q-layout style="position: absolute">
-        <q-drawer v-model="m_drawer" show-if-above bordered overlay ref="target" :width="350">
+        <q-drawer v-model="m_drawer" bordered overlay ref="target" :width="350">
             <div class="drawer">
-                <span class="category-text">
-                    Katalog m
-                </span>
+                <div class="flex items-center justify-between">
+                    <span class="category-text">
+                        Katalog
+                    </span>
+
+                    <div class="inline-block border border-red-400 p-2 rounded-md cursor-pointer select-none text-red-400"
+                        @click="closeNavBar('mobile')">
+                        <Icon icon="ri-close-line" class="text-lg" />
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6 bg-[#7316f60a] active:bg-[#7316f618] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center justify-center"
+                            v-for="(category, index) of  categories.categories " :key="index">
+                            <img src="../assets/vue.svg" />
+                            <div class="text-center">
+                                {{ category.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </q-drawer>
     </q-layout>
@@ -91,7 +172,7 @@ onClickOutside(target, () => {
         max-height: 100px;
         height: 100%;
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
         padding-left: 10px;
         padding-right: 10px;
 
@@ -163,6 +244,14 @@ onClickOutside(target, () => {
                 padding-top: 5px;
                 padding-bottom: 5px;
                 border-radius: 5px;
+            }
+
+            .menu:hover {
+                background: #7316f613;
+            }
+
+            .menu:active {
+                background: #7316f61c;
             }
         }
     }

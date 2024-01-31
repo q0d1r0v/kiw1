@@ -9,6 +9,8 @@ import AuthLayout from "../layouts/admin.vue";
 import LoginPage from "../pages/auth/login-page.vue";
 import IndexPage from "../pages/index.vue";
 import DashboardPage from "../pages/dashboard.vue";
+import ItemsPage from "../pages/products/items-page.vue";
+import ItemPage from "../pages/products/item-page.vue";
 
 // export router
 export const router = createRouter({
@@ -41,6 +43,18 @@ export const router = createRouter({
           name: "Index Page",
           path: "/",
           component: IndexPage,
+          props: true,
+        },
+        {
+          name: "Item Page",
+          path: "/item",
+          component: ItemPage,
+          props: true,
+        },
+        {
+          name: "Items Page",
+          path: "/items",
+          component: ItemsPage,
           props: true,
         },
       ],

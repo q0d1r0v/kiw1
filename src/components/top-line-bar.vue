@@ -58,14 +58,14 @@ const links = [
         width: 50%;
         display: flex;
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
     .right-side {
         width: 50%;
         display: flex;
         align-items: center;
-        justify-content: end;
+        justify-content: flex-end;
         gap: 10px;
 
         .icon {
