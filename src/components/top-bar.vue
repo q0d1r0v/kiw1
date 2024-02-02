@@ -5,6 +5,13 @@ import { Icon } from "@iconify/vue"
 import { onClickOutside } from "@vueuse/core"
 import { useCategoryStore } from "../store/categories"
 import { Loading } from "quasar";
+import { router } from "../routes/router";
+
+// types
+interface ITypesOfFilter {
+    search: string,
+    data: any
+}
 
 // ref
 const target = ref<any>('')
@@ -15,6 +22,10 @@ const categories: any = useCategoryStore()
 // data
 const drawer = ref<boolean>(false)
 const m_drawer = ref<boolean>(false)
+const filter = ref<ITypesOfFilter>({
+    search: "",
+    data: null
+})
 
 // methods
 async function getCategories() {
@@ -51,6 +62,26 @@ function closeNavBar(name: string) {
     }
 }
 
+function goToItemsPage(search: string | boolean, data: boolean | any) {
+    if (search) {
+        router.push({
+            path: "/items",
+            query: {
+                name: search.toString()
+            }
+        })
+    } else {
+        router.push({
+            path: "/items",
+            query: {
+                name: data.name,
+                category: data?.id
+            }
+        })
+        drawer.value = false
+    }
+}
+
 // click outside
 onClickOutside(target, () => {
     if (drawer.value || m_drawer.value) {
@@ -59,7 +90,7 @@ onClickOutside(target, () => {
     }
 })
 
-// onmounted
+// onMounted
 onMounted(() => {
     getCategories()
 })
@@ -70,7 +101,7 @@ onMounted(() => {
     <div class="top-bar">
         <div class="desktop">
             <div class="left-side">
-                <span class="logo">KIW1</span>
+                <span class="logo" @click="router.push('/')">KIW1</span>
 
                 <div class="menu" @click="changeDrawerValue('d_drawer')">
                     <Icon icon="ri-menu-line" />
@@ -80,10 +111,12 @@ onMounted(() => {
                 </div>
             </div>
 
-            <div class="right-side">
-                <q-input outlined dense placeholder="Qidiruv...">
+            <div class="right-side w-[200px]">
+                <q-input outlined dense placeholder="Qidiruv..." v-model="filter.search"
+                    @keyup.enter="goToItemsPage(filter.search, false)">
                     <template #append>
-                        <Icon icon="ri-search-line" class="text-md cursor-pointer" />
+                        <Icon icon="ri-search-line" class="text-md cursor-pointer"
+                            @click="goToItemsPage(filter.search, false)" />
                     </template>
                 </q-input>
             </div>
@@ -94,11 +127,15 @@ onMounted(() => {
                 <span @click="changeDrawerValue('m_drawer')">
                     <Icon icon="ri-menu-line" />
                 </span>
-                <q-input outlined dense placeholder="Qidiruv...">
-                    <template #append>
-                        <Icon icon="ri-search-line" class="text-md cursor-pointer" />
-                    </template>
-                </q-input>
+                <div class="w-[200px]">
+                    <q-input outlined dense placeholder="Qidiruv..." v-model="filter.search"
+                        @keyup.enter="goToItemsPage(filter.search, false)">
+                        <template #append>
+                            <Icon icon="ri-search-line" class="text-md cursor-pointer"
+                                @click="goToItemsPage(filter.search, false)" />
+                        </template>
+                    </q-input>
+                </div>
             </div>
         </div>
     </div>
@@ -107,7 +144,7 @@ onMounted(() => {
         <q-drawer v-model="drawer" bordered overlay ref="target" :width="800">
             <div class="drawer">
                 <div class="flex items-center justify-between">
-                    <span class="category-text">
+                    <span class="category-text" @click="router.push('/')">
                         Katalog
                     </span>
 
@@ -120,8 +157,9 @@ onMounted(() => {
                 <div class="mt-6">
                     <div class="row">
                         <div class="col-md-4 bg-[#7316f60a] hover:bg-[#7316f618] active:bg-[#7316f61f] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center"
-                            v-for="(category, index) of  categories.categories" :key="index">
-                            <img :src="getImageName(category)" />
+                            v-for="(category, index) of  categories.categories" :key="index"
+                            @click="goToItemsPage(false, category)">
+                            <img alt="#katalog" :src="getImageName(category)" width="40" />
                             {{ category.name }}
                         </div>
                     </div>
@@ -147,8 +185,9 @@ onMounted(() => {
                 <div class="mt-6">
                     <div class="row">
                         <div class="col-sm-6 col-xs-6 bg-[#7316f60a] active:bg-[#7316f618] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center justify-center"
-                            v-for="(category, index) of  categories.categories " :key="index">
-                            <img src="../assets/vue.svg" />
+                            v-for="(category, index) of  categories.categories " :key="index"
+                            @click="goToItemsPage(false, category)">
+                            <img :src="getImageName(category)" width="40" />
                             <div class="text-center">
                                 {{ category.name }}
                             </div>
@@ -204,7 +243,6 @@ onMounted(() => {
 .top-bar {
     height: 65px;
     background: #fff;
-    box-shadow: 0px 12px 10px -10px rgba(0, 0, 0, 0.1);
 
     & .desktop {
         height: 100%;

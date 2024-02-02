@@ -27,6 +27,5 @@ import Footer from "../components/footer.vue"
 .layout {
     padding-left: 200px;
     padding-right: 200px;
-    height: 100vh;
 }
 </style>
