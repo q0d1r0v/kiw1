@@ -94,7 +94,7 @@ onMounted(() => {
                 Qidiruv: {{ route.query.name }}
             </div>
             <div class="mt-4 row">
-                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 p-4 bg-white border-8 border-[#f6f8fa] rounded-md item"
+                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-2 p-4 bg-white border-8 border-[#f6f8fa] item"
                     v-for="item of data_of_items.data">
                     <div class="image rounded-md flex items-center justify-center p-4 overflow-scroll">
                         <img :alt="item.name" :src="getImageName(item)" width="200" />
@@ -121,6 +121,7 @@ onMounted(() => {
 .item {
     z-index: 1;
     transition: all 0.3s;
+    border-radius: 20px;
 }
 
 .item:hover {

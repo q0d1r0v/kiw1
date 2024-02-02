@@ -162,6 +162,14 @@ onMounted(() => {
                             <img alt="#katalog" :src="getImageName(category)" width="40" />
                             {{ category.name }}
                         </div>
+
+                        <div class="col-md-4 bg-[#7316f60a] hover:bg-[#7316f618] active:bg-[#7316f61f] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center"
+                            @click="router.push('/')">
+                            <div class="flex items-center justify-center gap-2">
+                                <Icon icon="ri-arrow-left-line" />
+                                Bosh sahifaqa qaytish
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -190,6 +198,14 @@ onMounted(() => {
                             <img :src="getImageName(category)" width="40" />
                             <div class="text-center">
                                 {{ category.name }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xs-6 bg-[#7316f60a] active:bg-[#7316f618] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center justify-center"
+                            @click="router.push('/')">
+                            <Icon icon="ri-arrow-left-line" />
+                            <div class="text-center">
+                                Bosh sahifaqa qaytish
                             </div>
                         </div>
                     </div>
