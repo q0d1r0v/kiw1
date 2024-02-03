@@ -18,9 +18,6 @@ interface ITypesOfItems {
 // route
 const route = useRoute()
 
-// data
-const page_name = ref<string>(route.query.name)
-
 const data_of_items = ref<ITypesOfItems>({
     pagination: {
         page: 1,
