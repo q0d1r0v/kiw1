@@ -52,7 +52,7 @@ async function getProducts() {
             const { data } = await client.get("/api/products", {
                 params: {
                     is_active: true,
-                    category_id: route.query.category
+                    categoryId: route.query.category
                 }
             })
             data_of_items.value.data = data.data
