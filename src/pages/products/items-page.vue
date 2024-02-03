@@ -4,6 +4,7 @@ import { useRoute } from "vue-router"
 import { ref, onMounted, watch } from "vue"
 import { client } from "../../utils/axios";
 import { Loading, Notify } from "quasar";
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 // types
 interface ITypesOfItems {
@@ -69,7 +70,7 @@ async function getProducts() {
     }
 }
 function getImageName(data: any) {
-    const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data.photo1
+    const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data
     console.log(url)
 
     return url
@@ -96,8 +97,19 @@ onMounted(() => {
             <div class="mt-4 row">
                 <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-2 p-4 bg-white border-8 border-[#f6f8fa] item"
                     v-for="item of data_of_items.data">
-                    <div class="image rounded-md flex items-center justify-center p-4 overflow-scroll">
-                        <img :alt="item.name" :src="getImageName(item)" width="200" />
+                    <div class="image rounded-md flex items-center justify-center p-4">
+                        <Carousel>
+                            <Slide v-for="link in item.photos" :key="link">
+                                <div class="carousel__item text-white">
+                                    <img :src="getImageName(link)" alt="item" />
+                                </div>
+                            </Slide>
+
+                            <template #addons>
+                                <Navigation />
+                                <Pagination />
+                            </template>
+                        </Carousel>
                     </div>
                     <span class="text-sm mt-4">
                         {{ item.name }}

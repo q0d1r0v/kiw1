@@ -11,6 +11,7 @@ import IndexPage from "../pages/index.vue";
 import DashboardPage from "../pages/dashboard.vue";
 import ItemsPage from "../pages/products/items-page.vue";
 import ItemPage from "../pages/products/item-page.vue";
+import NotFoundPage from "../pages/404.vue";
 
 // export router
 export const router = createRouter({
@@ -29,6 +30,14 @@ export const router = createRouter({
           name: "Dashboard Page",
           path: "dashboard",
           component: DashboardPage,
+          meta: {
+            auth: true,
+          },
+        },
+        {
+          name: "Not found",
+          path: "/:pathMatch(.*)*",
+          component: NotFoundPage,
           meta: {
             auth: true,
           },
@@ -56,6 +65,11 @@ export const router = createRouter({
           path: "/items",
           component: ItemsPage,
           props: true,
+        },
+        {
+          name: "Not found",
+          path: "/:pathMatch(.*)*",
+          component: NotFoundPage,
         },
       ],
     },

@@ -37,6 +37,11 @@
             </div>
         </div>
     </div>
+    <div class="text-center">
+        <span>
+            Created By OYBEK
+        </span>
+    </div>
 </template>
 
 <style scoped lang="scss">

@@ -1,19 +1,50 @@
 <script setup lang="ts">
 // imports
+import { Loading, Notify } from 'quasar';
+import { onMounted, ref } from 'vue';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+import { client } from '../utils/axios';
 
+// data
 const images = [
     'https://olcha.uz/image/original/sliders/ru/PXi4Xq9hQ7Wk2uP2w9pyINXStwWbacpbnruVPMhCHlKkyvgTyRvcu8k3lbeR.png',
     'https://olcha.uz/image/original/sliders/ru/QoSQpYTUvniq1ml5XWW7wXn1lZkSKxI0VxuifX4SoRVPDX6ta9cWlUIXeE6w.jpg'
 ]
+const random_products = ref<any[]>([])
+
+// methods
+async function getRandomProducts() {
+    try {
+        Loading.show()
+        const { data } = await client.get("/api/products/random")
+        random_products.value = data.data
+    } catch (err) {
+        Notify.create({
+            color: "red",
+            message: "Tovarlarni yuklab olishda xatolik yuz berdi!"
+        })
+    } finally {
+        Loading.hide()
+    }
+}
+function getImageName(data: any) {
+    const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data
+
+    return url
+}
+
+// onmounted
+onMounted(() => {
+    getRandomProducts()
+})
 
 </script>
 
 <template>
     <div>
         <Carousel>
-            <Slide v-for="link in images" :key="link">
+            <Slide v-for="link in images" :key="link" style="border-radius: 8px; overflow: hidden;">
                 <div class="carousel__item text-white">
                     <img :src="link" />
                 </div>
@@ -25,10 +56,33 @@ const images = [
             </template>
         </Carousel>
 
-        <div class="suggestions bg-white h-screen mb-4 rounded-md px-4 p-4">
-            <span>
-                Tavsiya tovarlar
+        <div class="suggestions min-h-screen rounded-md mt-4 mb-4">
+            <span class="text-lg">
+                Random tovarlar
             </span>
+
+            <div class="mt-4 row">
+                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-2 p-4 bg-white border-4 border-[#f6f8fa] item"
+                    v-for="item of random_products">
+                    <div class="image rounded-md flex items-center justify-center">
+                        <Carousel>
+                            <Slide v-for="link in item.photos" :key="link">
+                                <div class="carousel__item text-white">
+                                    <img :src="getImageName(link)" alt="item" />
+                                </div>
+                            </Slide>
+
+                            <template #addons>
+                                <Navigation />
+                                <Pagination />
+                            </template>
+                        </Carousel>
+                    </div>
+                    <div class="text-sm mt-4">
+                        {{ item.name }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -53,5 +107,15 @@ const images = [
 .carousel__next {
     box-sizing: content-box;
     border: 5px solid white;
+}
+
+.item {
+    z-index: 1;
+    transition: all 0.3s;
+    border-radius: 20px;
+}
+
+.item:hover {
+    cursor: pointer;
 }
 </style>
