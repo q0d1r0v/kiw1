@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // imports
 import { useRoute } from "vue-router"
-import { ref, onMounted, watch } from "vue"
+import { ref, onMounted, watch, nextTick } from "vue"
 import { client } from "../../utils/axios";
 import { Loading, Notify } from "quasar";
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
@@ -25,6 +25,7 @@ const data_of_items = ref<ITypesOfItems>({
     },
     data: []
 })
+const component_rerender = ref<boolean>(true)
 
 // methods
 async function getProducts() {
@@ -67,14 +68,17 @@ async function getProducts() {
     }
 }
 function getImageName(data: any) {
-    const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data
+    const url = ref<string>(import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data)
 
-    return url
+    return url.value
 }
 
 // watch
 watch(() => route.query, async () => {
-    getProducts()
+    component_rerender.value = false
+    await getProducts()
+    await nextTick()
+    component_rerender.value = true
 })
 
 // mounted
@@ -94,7 +98,7 @@ onMounted(() => {
                 <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-2 p-4 bg-white border-8 border-[#f6f8fa] item"
                     v-for="item of data_of_items.data">
                     <div class="image rounded-md flex items-center justify-center p-4">
-                        <Carousel>
+                        <Carousel v-if="component_rerender">
                             <Slide v-for="link in item.photos" :key="link">
                                 <div class="carousel__item text-white">
                                     <img :src="getImageName(link)" alt="item" />

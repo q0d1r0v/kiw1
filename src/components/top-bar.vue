@@ -182,9 +182,9 @@ onMounted(() => {
         <q-drawer v-model="m_drawer" bordered overlay ref="target" :width="350">
             <div class="drawer">
                 <div class="flex items-center justify-between">
-                    <span class="category-text">
+                    <div class="category-text border-none">
                         Katalog
-                    </span>
+                    </div>
 
                     <div class="inline-block border border-red-400 p-2 rounded-md cursor-pointer select-none text-red-400"
                         @click="closeNavBar('mobile')">
