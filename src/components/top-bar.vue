@@ -4,7 +4,7 @@ import { ref, onMounted } from "vue"
 import { Icon } from "@iconify/vue"
 import { onClickOutside } from "@vueuse/core"
 import { useCategoryStore } from "../store/categories"
-import { Loading } from "quasar";
+import { Loading, Notify } from "quasar";
 import { router } from "../routes/router";
 
 // types
@@ -33,7 +33,10 @@ async function getCategories() {
         Loading.show()
         await categories.getCategories()
     } catch (err) {
-        console.log(err)
+        Notify.create({
+            color: "red",
+            message: "Ma'lumotlarni yuklab olishda xatolik yuz berdi!"
+        })
     } finally {
         Loading.hide()
     }
@@ -49,7 +52,6 @@ function changeDrawerValue(name: string) {
 
 function getImageName(data: any) {
     const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data.photo
-    console.log(url)
 
     return url
 }

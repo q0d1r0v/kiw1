@@ -68,7 +68,6 @@ async function getProducts() {
 }
 function getImageName(data: any) {
     const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data
-    console.log(url)
 
     return url
 }
