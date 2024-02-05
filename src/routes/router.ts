@@ -1,5 +1,6 @@
 // imports
 import { createRouter, createWebHistory } from "vue-router";
+import { nextTick } from "vue";
 
 // layouts
 import DefaultLayout from "../layouts/default.vue";
@@ -12,6 +13,7 @@ import DashboardPage from "../pages/dashboard.vue";
 import ItemsPage from "../pages/products/items-page.vue";
 import ItemPage from "../pages/products/item-page.vue";
 import NotFoundPage from "../pages/404.vue";
+import { document } from "postcss";
 
 // export router
 export const router = createRouter({
@@ -25,12 +27,16 @@ export const router = createRouter({
           name: "Login Page",
           path: "auth/login",
           component: LoginPage,
+          meta: {
+            title: "Kirish",
+          },
         },
         {
           name: "Dashboard Page",
           path: "dashboard",
           component: DashboardPage,
           meta: {
+            title: "Dashboard",
             auth: true,
           },
         },
@@ -39,6 +45,7 @@ export const router = createRouter({
           path: "/:pathMatch(.*)*",
           component: NotFoundPage,
           meta: {
+            title: "Topilmagan sahifa",
             auth: true,
           },
         },
@@ -53,23 +60,35 @@ export const router = createRouter({
           path: "/",
           component: IndexPage,
           props: true,
+          meta: {
+            title: "Bosh sahifa",
+          },
         },
         {
           name: "Item Page",
           path: "/item",
           component: ItemPage,
           props: true,
+          meta: {
+            title: "Mahsulotlar",
+          },
         },
         {
           name: "Items Page",
           path: "/items",
           component: ItemsPage,
           props: true,
+          meta: {
+            title: "Mahsulot",
+          },
         },
         {
           name: "Not found",
           path: "/:pathMatch(.*)*",
           component: NotFoundPage,
+          meta: {
+            title: "Topilmagan sahifa",
+          },
         },
       ],
     },
@@ -82,4 +101,10 @@ router.beforeEach((to, from, next) => {
     next("/");
   }
   next();
+});
+
+router.afterEach((to) => {
+  nextTick(() => {
+    window.document.title = to.meta.title;
+  });
 });

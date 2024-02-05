@@ -77,9 +77,9 @@ async function getProducts() {
     }
 }
 function getImageName(data: any) {
-    const url = ref<string>(import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data)
+    const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data
 
-    return url.value
+    return url
 }
 
 // watch
@@ -111,13 +111,13 @@ onMounted(() => {
                 </div>
             </div>
             <div class="mt-4 row">
-                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-2 p-4 bg-white border-8 border-[#f6f8fa] item"
-                    v-for="item of data_of_items.data">
+                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-3 p-4 bg-white border-8 border-[#f6f8fa] item"
+                    v-for="item of data_of_items.data" @click="$router.push({ path: '/item', query: { item: item.id } })">
                     <div class="image rounded-md flex items-center justify-center p-4">
                         <Carousel v-if="component_rerender">
                             <Slide v-for="link in item.photos" :key="link">
                                 <div class="carousel__item text-white">
-                                    <img :src="getImageName(link)" alt="item" />
+                                    <img :src="getImageName(link)" alt="item" width="250" />
                                 </div>
                             </Slide>
 

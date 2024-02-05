@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import { client } from '../utils/axios';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 // data
 const images = [
@@ -62,13 +63,13 @@ onMounted(() => {
             </span>
 
             <div class="mt-4 row">
-                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-2 p-4 bg-white border-4 border-[#f6f8fa] item"
-                    v-for="item of random_products">
+                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-3 p-4 bg-white border-4 border-[#f6f8fa] item"
+                    v-for="item of random_products" @click="$router.push({ path: '/item', query: { item: item.id } })">
                     <div class="image rounded-md flex items-center justify-center">
                         <Carousel>
                             <Slide v-for="link in item.photos" :key="link">
                                 <div class="carousel__item text-white">
-                                    <img :src="getImageName(link)" alt="item" />
+                                    <img :src="getImageName(link)" alt="item" width="250" />
                                 </div>
                             </Slide>
 
@@ -78,8 +79,21 @@ onMounted(() => {
                             </template>
                         </Carousel>
                     </div>
-                    <div class="text-sm mt-4">
+                    <div class="text-lg mt-4">
                         {{ item.name }}
+                    </div>
+
+                    <div class="text-lg mt-4">
+                        {{ parseInt(item.price).toLocaleString().split(",").join(" ") }} UZS
+                    </div>
+
+                    <div class="mt-4">
+                        <q-btn unelevated outline style="color: #7316F6;">
+                            <div class="flex items-center gap-2">
+                                Sotib olish
+                                <Icon icon="ri-shopping-cart-fill" />
+                            </div>
+                        </q-btn>
                     </div>
                 </div>
             </div>
