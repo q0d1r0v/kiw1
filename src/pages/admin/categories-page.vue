@@ -1,3 +1,3 @@
 <template>
-    dashboard page
+    Categories page
 </template>

@@ -5,37 +5,83 @@ import { nextTick } from "vue";
 // layouts
 import DefaultLayout from "../layouts/default.vue";
 import AuthLayout from "../layouts/admin.vue";
+import AdminAuthLayout from "../layouts/auth.vue"
 
 // pages
 import LoginPage from "../pages/auth/login-page.vue";
 import IndexPage from "../pages/index.vue";
-import DashboardPage from "../pages/dashboard.vue";
 import ItemsPage from "../pages/products/items-page.vue";
 import ItemPage from "../pages/products/item-page.vue";
 import NotFoundPage from "../pages/404.vue";
+import DashboardPage from "../pages/admin/dashboard.vue";
+import CategoriesPage from "../pages/admin/categories-page.vue";
+import AdminItemsPage from "../pages/admin/admin-items-page.vue";
+import OrdersPage from "../pages/admin/orders-page.vue";
+import UsersPage from "../pages/admin/users-page.vue";
 
 // export router
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: "/admin/",
-      component: AuthLayout,
+      path: "/auth/",
+      component: AdminAuthLayout,
       children: [
         {
-          name: "Login Page",
-          path: "auth/login",
+          path: "login",
           component: LoginPage,
           meta: {
             title: "Kirish",
           },
-        },
+        }
+      ]
+    },
+    {
+      path: "/admin/",
+      component: AuthLayout,
+      children: [
         {
           name: "Dashboard Page",
           path: "dashboard",
           component: DashboardPage,
           meta: {
             title: "Dashboard",
+            auth: true,
+          },
+        },
+        {
+          name: "Categories Page",
+          path: "categories",
+          component: CategoriesPage,
+          meta: {
+            title: "Katalog",
+            auth: true,
+          },
+        },
+        {
+          name: "Admin Items Page",
+          path: "items",
+          component: AdminItemsPage,
+          meta: {
+            title: "Tovarlar",
+            auth: true,
+          },
+        },
+        {
+          name: "Orders Page",
+          path: "orders",
+          component: OrdersPage,
+          meta: {
+            title: "Buyurtmalar",
+            auth: true,
+          },
+        },
+        {
+          name: "Users Page",
+          path: "users",
+          component: UsersPage,
+          meta: {
+            title: "Foydalanuvchilar",
             auth: true,
           },
         },
