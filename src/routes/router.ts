@@ -13,7 +13,6 @@ import DashboardPage from "../pages/dashboard.vue";
 import ItemsPage from "../pages/products/items-page.vue";
 import ItemPage from "../pages/products/item-page.vue";
 import NotFoundPage from "../pages/404.vue";
-import { document } from "postcss";
 
 // export router
 export const router = createRouter({
@@ -70,7 +69,7 @@ export const router = createRouter({
           component: ItemPage,
           props: true,
           meta: {
-            title: "Mahsulotlar",
+            title: "Mahsulot",
           },
         },
         {
@@ -79,7 +78,7 @@ export const router = createRouter({
           component: ItemsPage,
           props: true,
           meta: {
-            title: "Mahsulot",
+            title: "Mahsulotlar",
           },
         },
         {
@@ -105,6 +104,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
   nextTick(() => {
-    window.document.title = to.meta.title;
+    const gw: any = window
+    gw.document.title = to.meta.title;
   });
 });
