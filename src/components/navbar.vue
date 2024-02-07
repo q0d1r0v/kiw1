@@ -14,9 +14,6 @@ interface ITypesOfNavbar {
 // router
 const router = useRouter()
 
-// emits
-const emits = defineEmits(["changeTitle"])
-
 // data
 const list_of_navbar: ITypesOfNavbar[] = [
     {
@@ -53,7 +50,6 @@ const list_of_navbar: ITypesOfNavbar[] = [
 
 // functions
 function changePage(list: ITypesOfNavbar) {
-    emits("changeTitle", list.name)
     router.push({
         path: list.path
     })
