@@ -85,7 +85,7 @@ function showFormDialog(action_name: string, data?: any) {
 
                 <div class="mt-4">
                     <q-input v-model="form.form.name" label="Nomi" clearable />
-                    <q-file v-model="form.form.file" label="Fayl" class="mt-4" accept=".jpg, .png" clearable>
+                    <q-file v-model="form.form.file" labela="Fayl" class="mt-4" accept=".jpg, .png" clearable>
                         <template v-slot:append>
                             <q-icon name="attach_file" />
                         </template>
