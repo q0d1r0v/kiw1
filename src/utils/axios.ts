@@ -30,11 +30,6 @@ client.interceptors.request.use((request: any) => {
     request.headers = {};
   }
 
-  // set token
-  if (access_token) {
-    request.headers.Authorization = `Bearer ${access_token}`;
-  }
-
   return request;
 });
 
