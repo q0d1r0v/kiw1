@@ -189,6 +189,9 @@ async function deleteCategory() {
         Loading.hide()
     }
 }
+function readImage(name: string) {
+    return import.meta.env.VITE_APP_ADMIN_BASE_URL + '/uploads/' + name
+}
 
 // on mounted
 onMounted(() => {
@@ -214,6 +217,12 @@ onMounted(() => {
                     <q-btn outline round dense color="red" class="ml-2" @click="showDeleteDialog(props.row)">
                         <Icon icon="ri-delete-bin-line" class="text-sm" />
                     </q-btn>
+                </td>
+            </template>
+
+            <template #body-cell-photo="props">
+                <td>
+                    <img width="40" :src="readImage(props.row.photo)" :alt="`#${props.row.photo}`">
                 </td>
             </template>
         </q-table>
