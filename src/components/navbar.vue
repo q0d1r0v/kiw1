@@ -33,13 +33,7 @@ const list_of_navbar: ITypesOfNavbar[] = [
         name: "Katalog",
         path: "/admin/categories",
         icon: "ri-list-check-2"
-    },
-    {
-        id: 5,
-        name: "Foydalanuvchilar",
-        path: "/admin/users",
-        icon: "ri-group-line"
-    },
+    }
 ]
 
 // functions

@@ -103,7 +103,9 @@ onMounted(() => {
     <div class="top-bar">
         <div class="desktop">
             <div class="left-side">
-                <span class="logo" @click="router.push('/')">KIW1</span>
+                <span class="logo" @click="router.push('/')">
+                    <img src="../assets/logo.svg" alt="#logo" width="60"/>
+                </span>
 
                 <div class="menu" @click="changeDrawerValue('d_drawer')">
                     <Icon icon="ri-menu-line" />
@@ -158,14 +160,14 @@ onMounted(() => {
 
                 <div class="mt-6">
                     <div class="row">
-                        <div class="col-md-4 bg-[#7316f60a] hover:bg-[#7316f618] active:bg-[#7316f61f] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center"
+                        <div class="col-md-4 bg-[#ff004c0c] active:bg-[#ff004c1c] hover:bg-[#ff004c11] border border-white rounded-md p-4 cursor-pointer select-none text-[#000] text-lg flex gap-4 items-center"
                             v-for="(category, index) of  categories.categories" :key="index"
                             @click="goToItemsPage(false, category)">
                             <img alt="#katalog" :src="getImageName(category)" width="40" />
                             {{ category.name }}
                         </div>
 
-                        <div class="col-md-4 bg-[#7316f60a] hover:bg-[#7316f618] active:bg-[#7316f61f] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center"
+                        <div class="col-md-4 bg-[#ff004c0c] active:bg-[#ff004c1c] hover:bg-[#ff004c11] border border-white rounded-md p-4 cursor-pointer select-none text-[#000] text-lg flex gap-4 items-center"
                             @click="router.push('/')">
                             <div class="flex items-center justify-center gap-2">
                                 <Icon icon="ri-arrow-left-line" />
@@ -194,7 +196,7 @@ onMounted(() => {
 
                 <div class="mt-6">
                     <div class="row">
-                        <div class="col-sm-6 col-xs-6 bg-[#7316f60a] active:bg-[#7316f618] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center justify-center"
+                        <div class="col-sm-6 col-xs-6 bg-[#ff004c0c] active:bg-[#ff004c1c] border border-white rounded-md p-4 cursor-pointer select-none text-[#000] text-lg flex gap-4 items-center justify-center"
                             v-for="(category, index) of  categories.categories " :key="index"
                             @click="goToItemsPage(false, category)">
                             <img :src="getImageName(category)" width="40" />
@@ -203,7 +205,7 @@ onMounted(() => {
                             </div>
                         </div>
 
-                        <div class="col-sm-6 col-xs-6 bg-[#7316f60a] active:bg-[#7316f618] border border-white rounded-md p-4 cursor-pointer select-none text-[#7E39F6] text-lg flex gap-4 items-center justify-center"
+                        <div class="col-sm-6 col-xs-6 bg-[#ff004c0c] active:bg-[#ff004c1c] border border-white rounded-md p-4 cursor-pointer select-none text-[#000] text-lg flex gap-4 items-center justify-center"
                             @click="router.push('/')">
                             <Icon icon="ri-arrow-left-line" />
                             <div class="text-center">
@@ -290,9 +292,8 @@ onMounted(() => {
                 justify-content: center;
                 gap: 10px;
                 font-size: 20px;
-                border: 1px solid #7316F6;
-                background: #7316f60a;
-                color: #7316F6;
+                border: 1px solid #FF004D;
+                color: #FF004D;
                 -webkit-user-select: none;
                 cursor: pointer;
                 padding-left: 10px;
@@ -303,11 +304,11 @@ onMounted(() => {
             }
 
             .menu:hover {
-                background: #7316f613;
+                background: #ff004c07;
             }
 
             .menu:active {
-                background: #7316f61c;
+                background: #ff004c0e;
             }
         }
     }

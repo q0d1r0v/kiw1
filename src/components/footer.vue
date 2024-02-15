@@ -66,7 +66,7 @@ const links = [
     </div>
     <div class="text-center">
         <span>
-            Created By OYBEK
+            Created By KIW1
         </span>
     </div>
 </template>

@@ -6,7 +6,7 @@
             </div>
             <img alt="not found" src="../assets/not-found.svg" width="300" class="mt-8" />
             <div class="flex items-center justify-center mt-8">
-                <q-btn unelevated outline color="blue" @click="$router.push('/')">
+                <q-btn unelevated outline color="red" @click="$router.push('/')">
                     Bosh sahifaga qaytish
                 </q-btn>
             </div>

@@ -88,7 +88,7 @@ onMounted(() => {
                     </div>
 
                     <div class="mt-4">
-                        <q-btn unelevated outline style="color: #7316F6;">
+                        <q-btn unelevated outline style="color: #FF004D;">
                             <div class="flex items-center gap-2">
                                 Sotib olish
                                 <Icon icon="ri-shopping-cart-fill" />
