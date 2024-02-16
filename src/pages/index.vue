@@ -45,9 +45,9 @@ onMounted(() => {
 <template>
     <div>
         <Carousel>
-            <Slide v-for="link in images" :key="link" style="border-radius: 8px; overflow: hidden;">
+            <Slide style="border-radius: 8px; overflow: hidden;">
                 <div class="carousel__item text-white">
-                    <img :src="link" />
+                    <img src="../assets/main.png" style="width: 100% !important;" />
                 </div>
             </Slide>
 
