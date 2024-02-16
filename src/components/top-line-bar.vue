@@ -29,7 +29,7 @@ const links = [
         </div>
         <div class="left-side desktop">
             <span>
-                +998 99 123 45 67
+                +998(95) 973-44-33
             </span>
         </div>
         <div class="right-side desktop">
