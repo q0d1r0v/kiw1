@@ -66,7 +66,7 @@ const axis = ref<any>({
 
 <template>
     <div>
-        <Chart :size="{ width: 500, height: 420 }" :data="data" :margin="margin" :direction="direction" :axis="axis">
+        <!-- <Chart :size="{ width: 500, height: 420 }" :data="data" :margin="margin" :direction="direction" :axis="axis">
 
             <template #layers>
                 <Grid strokeDasharray="2,2" />
@@ -84,6 +84,6 @@ const axis = ref<any>({
                 }" />
             </template>
 
-        </Chart>
+        </Chart> -->
     </div>
 </template>
