@@ -18,6 +18,7 @@ import CategoriesPage from "../pages/admin/categories-page.vue";
 import AdminItemsPage from "../pages/admin/admin-items-page.vue";
 import OrdersPage from "../pages/admin/orders-page.vue";
 import UsersPage from "../pages/admin/users-page.vue";
+import BannerPage from "../pages/banner/index.vue"
 
 // export router
 export const router = createRouter({
@@ -46,6 +47,15 @@ export const router = createRouter({
           component: DashboardPage,
           meta: {
             title: "Dashboard",
+            auth: true,
+          },
+        },
+        {
+          name: "Banner Page",
+          path: "banner",
+          component: BannerPage,
+          meta: {
+            title: "Banner",
             auth: true,
           },
         },

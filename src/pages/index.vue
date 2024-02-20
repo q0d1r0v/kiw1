@@ -8,16 +8,30 @@ import { client } from '../utils/axios';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
 // data
-const images = [
-    'https://olcha.uz/image/original/sliders/ru/PXi4Xq9hQ7Wk2uP2w9pyINXStwWbacpbnruVPMhCHlKkyvgTyRvcu8k3lbeR.png',
-    'https://olcha.uz/image/original/sliders/ru/QoSQpYTUvniq1ml5XWW7wXn1lZkSKxI0VxuifX4SoRVPDX6ta9cWlUIXeE6w.jpg'
-]
+const banner_images = ref<any>([])
 const random_products = ref<any[]>([])
 
 // methods
+async function getBanners() {
+    try {
+        const { data } = await client.get("/api/banner")
+        banner_images.value = data.data
+
+
+        console.log(banner_images.value)
+    } catch (err) {
+        Notify.create({
+            color: "red",
+            message: "Bannerlarni yuklab olishda xatolik yuz berdi!"
+        })
+    } finally {
+        Loading.hide()
+    }
+}
 async function getRandomProducts() {
     try {
         Loading.show()
+        await getBanners()
         const { data } = await client.get("/api/products/random")
         random_products.value = data.data
     } catch (err) {
@@ -34,6 +48,9 @@ function getImageName(data: any) {
 
     return url
 }
+function readImage(name: string) {
+    return import.meta.env.VITE_APP_ADMIN_BASE_URL + '/uploads/' + name
+}
 
 // onmounted
 onMounted(() => {
@@ -45,9 +62,9 @@ onMounted(() => {
 <template>
     <div>
         <Carousel>
-            <Slide style="border-radius: 8px; overflow: hidden;">
+            <Slide style="border-radius: 8px; overflow: hidden;" v-for="(img, index) of banner_images" :key="index">
                 <div class="carousel__item text-white">
-                    <img src="../assets/main.png" style="width: 100% !important;" />
+                    <img :src="readImage(img.image)" style="width: 100% !important;" alt="#banner_image" />
                 </div>
             </Slide>
 

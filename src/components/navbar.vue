@@ -24,12 +24,18 @@ const list_of_navbar: ITypesOfNavbar[] = [
     },
     {
         id: 2,
+        name: "Banner",
+        path: "/admin/banner",
+        icon: "ri-dropdown-list"
+    },
+    {
+        id: 3,
         name: "Tovarlar",
         path: "/admin/items",
         icon: "ri-file-list-2-line"
     },
     {
-        id: 3,
+        id: 4,
         name: "Katalog",
         path: "/admin/categories",
         icon: "ri-list-check-2"
