@@ -1,6 +1,5 @@
 <script setup lang="ts">
 // imports
-import {ref} from "vue"
 import NavBar from '../components/navbar.vue'
 import DashboardTopBar from "../components/dashboard-topbar.vue"
 </script>

@@ -54,7 +54,7 @@ function changePage(list: ITypesOfNavbar) {
 <template>
     <div class="select-none">
         <div class="logo flex items-center justify-center p-4 text-2xl">
-            Logo
+            <img alt="logo" src="../assets/logo.svg" width="80"/>
         </div>
 
         <div class="menu flex items-center justify-center mt-4 px-8">
