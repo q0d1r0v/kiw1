@@ -173,21 +173,31 @@ async function sendProduct() {
                 images.push(data.data)
             })
             setTimeout(async () => {
-                await admin.post("/api/products", {
-                    name: data_of_products.value.dialog_form.name,
-                    description: data_of_products.value.dialog_form.description,
-                    photos: images,
-                    categoryId: data_of_products.value.dialog_form.category_id,
-                    price: ~~data_of_products.value.dialog_form.price,
-                })
+                try {
+                    Loading.show()
+                    await admin.post("/api/products", {
+                        name: data_of_products.value.dialog_form.name,
+                        description: data_of_products.value.dialog_form.description,
+                        photos: images,
+                        categoryId: data_of_products.value.dialog_form.category_id,
+                        price: ~~data_of_products.value.dialog_form.price,
+                    })
 
-                await getProducts()
+                    await getProducts()
 
-                data_of_products.value.dialog_form.dialog_model = false
-                Notify.create({
-                    color: "green",
-                    message: "Tovar muvoffaqiyatli yaratildi!"
-                })
+                    data_of_products.value.dialog_form.dialog_model = false
+                    Notify.create({
+                        color: "green",
+                        message: "Tovar muvoffaqiyatli yaratildi!"
+                    })
+                } catch (err) {
+                    Notify.create({
+                        color: "red",
+                        message: "Tovarni yaratishda xatolik yuz berdi!"
+                    })
+                } finally {
+                    Loading.hide()
+                }
             }, 500)
         } catch (err) {
             Notify.create({
@@ -318,6 +328,7 @@ onMounted(() => {
                 <q-input label="Izoh" clearable v-model="data_of_products.dialog_form.description" />
                 <q-file label="Tovar rasmi" class="mt-4" accept=".jpg, .png" clearable
                     v-model="data_of_products.dialog_form.photos" multiple>
+
                     <template v-slot:append>
                         <q-icon name="attach_file" />
                     </template>
