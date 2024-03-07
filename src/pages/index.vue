@@ -80,7 +80,7 @@ onMounted(() => {
             </span>
 
             <div class="mt-4 row">
-                <div class="max-sm:w-full min-h-[350px] col-sm-6 col-md-3 col-lg-3 p-4 bg-white border-4 border-[#f6f8fa] item"
+                <div class="max-sm:w-full min-h-[350px] col-xs-6 col-sm-6 col-md-3 col-lg-3 p-4 bg-white border-4 border-[#f6f8fa] item"
                     v-for="item of random_products" @click="$router.push({ path: '/item', query: { item: item.id } })">
                     <div class="image rounded-md flex items-center justify-center">
                         <Carousel>
