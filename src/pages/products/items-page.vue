@@ -75,6 +75,9 @@ async function getProducts() {
             Loading.hide()
         }
     }
+    component_rerender.value = false
+    await nextTick()
+    component_rerender.value = true
 }
 function getImageName(data: any) {
     const url = import.meta.env.VITE_APP_BASE_URL + "/uploads/" + data
